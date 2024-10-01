@@ -26,13 +26,14 @@ async def cmd_start(message: Message):
 выводить тебе фильмы c ограничением 18+. \n\n\
 Чтобы сделать это - напиши команду /reg.")
 
+
 @router.message(Command("reg"))
 async def cmd_reg(message: Message, state: FSMContext):
     await state.set_state(Registration.name)
     await message.answer("Для начала скажи, как я могу к тебе обращаться:")
 
 
-## Регистрация
+# Регистрация
 @router.message(Registration.name)
 async def reg_name(message: Message, state: FSMContext):
     await state.update_data(name=message.text)
@@ -72,7 +73,7 @@ async def cmd_more(message: Message):
 
 @router.message(Command("help"))
 async def cmd_help(message: Message):
-    with open("misc/help_commands.txt", "r", encoding = "UTF-8") as file:
+    with open("misc/help_commands.txt", "r", encoding="UTF-8") as file:
         help_text = file.read()
     await message.answer(help_text)
 #
@@ -105,7 +106,7 @@ async def help(message: Message):
 async def contacts(callback: CallbackQuery):
     await callback.answer("")
     await callback.message.edit_text("Связаться с нами можно через:", reply_markup=kboard.contacts)
-    
+
 
 @router.callback_query(F.data == "about_us")
 async def about_us(callback: CallbackQuery):
